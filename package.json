@@ -7,7 +7,7 @@
     "color": "#5c2d91",
     "theme": "light"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "medius",
   "license": "See LICENSE file",
   "homepage": "https://github.com/tomaszskubisz/vscode-runonsave-medius/blob/master/README.md",
