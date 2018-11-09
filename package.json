@@ -10,13 +10,13 @@
   "version": "0.1.0",
   "publisher": "medius",
   "license": "See LICENSE file",
-  "homepage": "https://github.com/emeraldwalk/vscode-runonsave/blob/master/README.md",
+  "homepage": "https://github.com/tomaszskubisz/vscode-runonsave-medius/blob/master/README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/emeraldwalk/vscode-runonsave.git"
+    "url": "https://github.com/tomaszskubisz/vscode-runonsave-medius"
   },
   "bugs": {
-    "url": "https://github.com/emeraldwalk/vscode-runonsave/issues"
+    "url": "https://github.com/tomaszskubisz/vscode-runonsave-medius/issues"
   },
   "engines": {
     "vscode": "^0.10.1"
@@ -31,11 +31,11 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.emeraldwalk.enableRunOnSave",
+        "command": "extension.medius.enableRunOnSave",
         "title": "Run On Save: Enable"
       },
       {
-        "command": "extension.emeraldwalk.disableRunOnSave",
+        "command": "extension.medius.disableRunOnSave",
         "title": "Run On Save: Disable"
       }
     ],
@@ -43,7 +43,7 @@
       "title": "Run On Save command configuration.",
       "type": "object",
       "properties": {
-        "emeraldwalk.runonsave": {
+        "medius.runonsave": {
           "type": "object",
           "properties": {
             "autoClearConsole": {
