@@ -1,141 +1,141 @@
 {
-	"name": "runonsave",
-	"displayName": "Run on Save (MEDIUS)",
-	"description": "Run commands when a file is saved in vscode.",
-	"icon": "images/save-icon.png",
-	"galleryBanner": {
-		"color": "#5c2d91",
-		"theme": "light"
-	},
-	"version": "0.0.18",
-	"publisher": "medius",
-	"license": "See LICENSE file",
-	"homepage": "https://github.com/emeraldwalk/vscode-runonsave/blob/master/README.md",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/emeraldwalk/vscode-runonsave.git"
-	},
-	"bugs": {
-		"url": "https://github.com/emeraldwalk/vscode-runonsave/issues"
-	},
-	"engines": {
-		"vscode": "^0.10.1"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./out/src/extension",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.emeraldwalk.enableRunOnSave",
-				"title": "Run On Save: Enable"
-			},
-			{
-				"command": "extension.emeraldwalk.disableRunOnSave",
-				"title": "Run On Save: Disable"
-			}
-		],
-		"configuration": {
-			"title": "Run On Save command configuration.",
-			"type": "object",
-			"properties": {
-				"emeraldwalk.runonsave": {
-					"type": "object",
-					"properties": {
-						"autoClearConsole": {
-							"type": "boolean",
-							"description": "Automatically clear the console on each save before running commands.",
-							"default": false
-						},
-						"shell": {
-							"type": "string",
-							"description": "Shell to execute the command with (gets passed to child_process.exec as an options arg. e.g. child_process(cmd, { shell })."
-						},
-						"commands": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"match": {
-										"type": "string",
-										"description": "Regex for matching files to run commands on \n\nNOTE: This is a regex and not a file path spce, so backslashes have to be escaped. They also have to be escaped in json strings, so you may have to double escape them in certain cases such as targetting contents of folders.\n\ne.g.\n\"match\": \"some\\\\\\\\directory\\\\\\\\.*\"",
-										"default": ".*"
-									},
-									"notMatch": {
-										"type": "string",
-										"description": "Regex for matching files *not* to run commands on.",
-										"default": ".*"
-									},
-									"cmd": {
-										"type": "string",
-										"description": "Command to execute on save.",
-										"default": "echo ${file}"
-									},
-									"isAsync": {
-										"type": "boolean",
-										"description": "Run command asynchronously.",
-										"default": false
-									},
-									"useGroupTemplate": {
-										"type": "boolean",
-										"description": "Create command(s) from group template",
-										"default": false
-									},
-									"templateParameters": {
-										"type": "string",
-										"description": "Parameters separated by semicolon. Eg. 'Enterprise;c:\repos' will replace placeholders in group templates {$p0}, {$p1}"
-									}
-								}
-							}
-						},
-						"commandsGroupTemplate": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"match": {
-										"type": "string",
-										"description": "Regex for matching files to run commands on \n\nNOTE: This is a regex and not a file path spce, so backslashes have to be escaped. They also have to be escaped in json strings, so you may have to double escape them in certain cases such as targetting contents of folders.\n\ne.g.\n\"match\": \"some\\\\\\\\directory\\\\\\\\.*\"",
-										"default": ".*"
-									},
-									"notMatch": {
-										"type": "string",
-										"description": "Regex for matching files *not* to run commands on.",
-										"default": ".*"
-									},
-									"cmd": {
-										"type": "string",
-										"description": "Command to execute on save.",
-										"default": "echo ${file}"
-									},
-									"isAsync": {
-										"type": "boolean",
-										"description": "Run command asynchronously.",
-										"default": false
-									}
-								}
-							}							
-						}
-					}
-				}
-			}
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "tsc -p ./",
-		"compile": "tsc -watch -p ./",
-		"postinstall": "node ./node_modules/vscode/bin/install"
-	},
-	"devDependencies": {
-		"@types/mocha": "^5.2.5",
-		"typescript": "^3.0.1",
-		"vscode": "^1.1.18"
-	},
-	"dependencies": {
-		"@types/node": "^10.5.6"
-	}
+  "name": "runonsave",
+  "displayName": "Run on Save (MEDIUS)",
+  "description": "Run commands when a file is saved in vscode.",
+  "icon": "images/save-icon.png",
+  "galleryBanner": {
+    "color": "#5c2d91",
+    "theme": "light"
+  },
+  "version": "0.1.0",
+  "publisher": "medius",
+  "license": "See LICENSE file",
+  "homepage": "https://github.com/emeraldwalk/vscode-runonsave/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emeraldwalk/vscode-runonsave.git"
+  },
+  "bugs": {
+    "url": "https://github.com/emeraldwalk/vscode-runonsave/issues"
+  },
+  "engines": {
+    "vscode": "^0.10.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.emeraldwalk.enableRunOnSave",
+        "title": "Run On Save: Enable"
+      },
+      {
+        "command": "extension.emeraldwalk.disableRunOnSave",
+        "title": "Run On Save: Disable"
+      }
+    ],
+    "configuration": {
+      "title": "Run On Save command configuration.",
+      "type": "object",
+      "properties": {
+        "emeraldwalk.runonsave": {
+          "type": "object",
+          "properties": {
+            "autoClearConsole": {
+              "type": "boolean",
+              "description": "Automatically clear the console on each save before running commands.",
+              "default": false
+            },
+            "shell": {
+              "type": "string",
+              "description": "Shell to execute the command with (gets passed to child_process.exec as an options arg. e.g. child_process(cmd, { shell })."
+            },
+            "commands": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "match": {
+                    "type": "string",
+                    "description": "Regex for matching files to run commands on \n\nNOTE: This is a regex and not a file path spce, so backslashes have to be escaped. They also have to be escaped in json strings, so you may have to double escape them in certain cases such as targetting contents of folders.\n\ne.g.\n\"match\": \"some\\\\\\\\directory\\\\\\\\.*\"",
+                    "default": ".*"
+                  },
+                  "notMatch": {
+                    "type": "string",
+                    "description": "Regex for matching files *not* to run commands on.",
+                    "default": ".*"
+                  },
+                  "cmd": {
+                    "type": "string",
+                    "description": "Command to execute on save.",
+                    "default": "echo ${file}"
+                  },
+                  "isAsync": {
+                    "type": "boolean",
+                    "description": "Run command asynchronously.",
+                    "default": false
+                  },
+                  "useGroupTemplate": {
+                    "type": "boolean",
+                    "description": "Create command(s) from group template",
+                    "default": false
+                  },
+                  "templateParameters": {
+                    "type": "string",
+                    "description": "Parameters separated by semicolon. Eg. 'Enterprise;c:\repos' will replace placeholders in group templates {$p0}, {$p1}"
+                  }
+                }
+              }
+            },
+            "commandsGroupTemplate": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "match": {
+                    "type": "string",
+                    "description": "Regex for matching files to run commands on \n\nNOTE: This is a regex and not a file path spce, so backslashes have to be escaped. They also have to be escaped in json strings, so you may have to double escape them in certain cases such as targetting contents of folders.\n\ne.g.\n\"match\": \"some\\\\\\\\directory\\\\\\\\.*\"",
+                    "default": ".*"
+                  },
+                  "notMatch": {
+                    "type": "string",
+                    "description": "Regex for matching files *not* to run commands on.",
+                    "default": ".*"
+                  },
+                  "cmd": {
+                    "type": "string",
+                    "description": "Command to execute on save.",
+                    "default": "echo ${file}"
+                  },
+                  "isAsync": {
+                    "type": "boolean",
+                    "description": "Run command asynchronously.",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "typescript": "^3.0.1",
+    "vscode": "^1.1.18"
+  },
+  "dependencies": {
+    "@types/node": "^10.5.6"
+  }
 }
