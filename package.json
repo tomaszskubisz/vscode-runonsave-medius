@@ -1,5 +1,5 @@
 {
-	"name": "RunOnSave",
+	"name": "runonsave",
 	"displayName": "Run on Save",
 	"description": "Run commands when a file is saved in vscode.",
 	"icon": "images/save-icon.png",
@@ -8,7 +8,7 @@
 		"theme": "light"
 	},
 	"version": "0.0.18",
-	"publisher": "emeraldwalk",
+	"publisher": "medius",
 	"license": "See LICENSE file",
 	"homepage": "https://github.com/emeraldwalk/vscode-runonsave/blob/master/README.md",
 	"repository": {
@@ -79,9 +79,46 @@
 										"type": "boolean",
 										"description": "Run command asynchronously.",
 										"default": false
+									},
+									"useGroupTemplate": {
+										"type": "boolean",
+										"description": "Create command(s) from group template",
+										"default": false
+									},
+									"templateParameters": {
+										"type": "string",
+										"description": "Parameters separated by semicolon. Eg. 'Enterprise;c:\repos' will replace placeholders in group templates {$p0}, {$p1}"
 									}
 								}
 							}
+						},
+						"commandsGroupTemplate": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"match": {
+										"type": "string",
+										"description": "Regex for matching files to run commands on \n\nNOTE: This is a regex and not a file path spce, so backslashes have to be escaped. They also have to be escaped in json strings, so you may have to double escape them in certain cases such as targetting contents of folders.\n\ne.g.\n\"match\": \"some\\\\\\\\directory\\\\\\\\.*\"",
+										"default": ".*"
+									},
+									"notMatch": {
+										"type": "string",
+										"description": "Regex for matching files *not* to run commands on.",
+										"default": ".*"
+									},
+									"cmd": {
+										"type": "string",
+										"description": "Command to execute on save.",
+										"default": "echo ${file}"
+									},
+									"isAsync": {
+										"type": "boolean",
+										"description": "Run command asynchronously.",
+										"default": false
+									}
+								}
+							}							
 						}
 					}
 				}

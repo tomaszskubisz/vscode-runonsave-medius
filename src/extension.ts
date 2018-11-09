@@ -7,17 +7,19 @@ export function activate(context: vscode.ExtensionContext): void {
 	var extension = new RunOnSaveExtension(context);
 	extension.showOutputMessage();
 
+	const halo = "aa";
+
 	vscode.workspace.onDidChangeConfiguration(() => {
 		let disposeStatus = extension.showStatusMessage('Run On Save: Reloading config.');
 		extension.loadConfig();
 		disposeStatus.dispose();
 	});
 
-	vscode.commands.registerCommand('extension.emeraldwalk.enableRunOnSave', () => {
+	vscode.commands.registerCommand('extension.medius.enableRunOnSave', () => {
 		extension.isEnabled = true;
 	});
 
-	vscode.commands.registerCommand('extension.emeraldwalk.disableRunOnSave', () => {
+	vscode.commands.registerCommand('extension.medius.disableRunOnSave', () => {
 		extension.isEnabled = false;
 	});
 
@@ -31,12 +33,15 @@ interface ICommand {
 	notMatch?: string;
 	cmd: string;
 	isAsync: boolean;
+	useGroupTemplate?: boolean;
+	templateParameters?: string;
 }
 
 interface IConfig {
 	shell: string;
 	autoClearConsole: boolean;
 	commands: Array<ICommand>;
+	commandsGroupTemplate: Array<ICommand>;
 }
 
 class RunOnSaveExtension {
@@ -105,8 +110,12 @@ class RunOnSaveExtension {
 		return this._config.commands || [];
 	}
 
+	public get commandsGroupTemplate(): Array<ICommand> {
+		return this._config.commandsGroupTemplate || [];
+	}
+
 	public loadConfig(): void {
-		this._config = <IConfig><any>vscode.workspace.getConfiguration('emeraldwalk.runonsave');
+		this._config = <IConfig><any>vscode.workspace.getConfiguration('medius.runonsave');
 	}
 
 	/**
@@ -138,8 +147,34 @@ class RunOnSaveExtension {
 
 		var match = (pattern: string) => pattern && pattern.length > 0 && new RegExp(pattern).test(document.fileName);
 
-		var commandConfigs = this.commands
-			.filter(cfg => {
+		var commandsToUse = [];
+
+		this.commands.forEach(cmd => {
+			if (cmd.useGroupTemplate && this.commandsGroupTemplate.length > 0){
+				const params = cmd.templateParameters.split(";").map(p => p.trim());
+				const commandsFromTemplate = this.commandsGroupTemplate.map(tpl => {
+					var match = tpl.match;
+					var cmd = tpl.cmd;
+					params.forEach((p,i) => {
+						const placeholder = "${p" + i + "}";
+						match = match.split(placeholder).join(p);
+						cmd = cmd.split(placeholder).join(p);
+					} );
+					return {
+						cmd: cmd,
+						match: match,
+						isAsync: tpl.isAsync,						
+						notMatch: tpl.notMatch						
+					} as ICommand
+				});
+				commandsToUse.push(...commandsFromTemplate);
+			} else{
+				commandsToUse.push(cmd);
+			}
+		})
+
+		var commandConfigs = commandsToUse
+			.filter(cfg => {				
 				var matchPattern = cfg.match || '';
 				var negatePattern = cfg.notMatch || '';
 
